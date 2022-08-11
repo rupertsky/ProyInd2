@@ -35,7 +35,7 @@ def re_idx_name(data, ogcol, rename=None):
 
 
 df = pd.read_csv(
-    'C:\\Users\\cajas\\PycharmProjects\\ProyInd2\\COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
+    'COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 
 df.drop_duplicates(inplace=True)
 df.fillna(0, inplace=True)
