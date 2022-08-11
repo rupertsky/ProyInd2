@@ -201,12 +201,7 @@ st.markdown('3. Top 5 estados con mayor uso de camas UCI anio 2020')
 st.code('''most_beds = df2.groupby('state').apply(lambda x: x[x['date'].dt.year == 2020][
     ['inpatient_beds', 'inpatient_beds_used', 'inpatient_beds_used_covid']].sum())
 most_beds = most_beds.loc[most_beds['inpatient_beds_used'].nlargest(5).index]
-most_beds.reset_index(inplace=True)
-dat_col2 = list(most_beds.columns)
-most_beds = re_idx_name(most_beds, dat_col2, {'state': 'Estado',
-                                              'inpatient_beds': 'Camas UCI Disponibles',
-                                              'inpatient_beds_used': 'Camas UCI Normal',
-                                              'inpatient_beds_used_covid': 'Camas UCI COVID'})''', language='python')
+most_beds.reset_index(inplace=True)''', language='python')
 st.plotly_chart(bedsfig)
 st.caption('California lidera la lista con un total de 11.316.300 camas usadas durante el '
            'anio 2020, seguido de Texas con 11.073.678 camas usadas.')
