@@ -1,0 +1,4 @@
+para cargar en streamlit:
+cmd:
+	streamlit run absolute_path/ProyInd2/COVID-app.py, siendo
+	absolut_path la ruta que da a la carpeta ProyInd2

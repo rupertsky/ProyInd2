@@ -1,0 +1,5 @@
+streamlit==1.11.1
+sodapy==2.1.1
+plotly==5.9.0
+pandas==1.4.3
+regex==2022.6.2
