@@ -176,11 +176,7 @@ st.markdown('1. ¿Cuáles fueron los 5 Estados con mayor ocupación hospitalaria
 st.code('''s5m = df2.loc[df2['date'].dt.year == 2020]
 s5m = s5m.groupby('state').apply(lambda x: x[x['month'] <= 6][
     ['inpatient_beds_used_covid', 'total_adult_patients_hospitalized_confirmed_covid', 'deaths_covid']].sum())
-s5m = s5m.loc[s5m['inpatient_beds_used_covid'].nlargest(5).index]
-dat_col = list(s5m.columns)
-s5m = re_idx_name(s5m, dat_col, {'inpatient_beds_used_covid': 'Camas UCI COVID',
-                                 'total_adult_patients_hospitalized_confirmed_covid': 'Adultos Hospitalizados',
-                                 'deaths_covid': 'Muertes'})''',
+s5m = s5m.loc[s5m['inpatient_beds_used_covid'].nlargest(5).index]''',
         language='python')
 st.dataframe(s5m)
 st.caption('Siendo New York el mayor hasta el 2020-06-30 '
@@ -244,11 +240,7 @@ st.caption('Se puede observar un gran aumento de muertes con relacion a la falta
            'durante el anio 2021.')
 #####################################
 st.markdown('8. Peor mes durante la pandemia COVID')
-st.code('''worst_year = df2.groupby([df2.date.dt.year, df2.date.dt.month])[
-    ['deaths_covid', 'critical_staffing_shortage_today_yes']].sum()
-worst_year.reset_index(level=1, inplace=True)
-worst_year.rename(columns={'date': 'month'}, inplace=True)
-worst_year = worst_year.rename_axis('year', axis='index')
+st.code('''
 worst_month = worst_year.copy()
 worst_month = worst_month.groupby('month').sum()
 worst_month.rename(index=lambda x: calendar.month_abbr[x], inplace=True)''', language='python')
