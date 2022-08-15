@@ -173,20 +173,11 @@ st.title('Proyecto Individual #2')
 st.caption('by Carlos Gaviria')
 #####################################
 st.markdown('1. ¿Cuáles fueron los 5 Estados con mayor ocupación hospitalaria por **_COVID_**?')
-st.code('''s5m = df2.loc[df2['date'].dt.year == 2020]
-s5m = s5m.groupby('state').apply(lambda x: x[x['month'] <= 6][
-    ['inpatient_beds_used_covid', 'total_adult_patients_hospitalized_confirmed_covid', 'deaths_covid']].sum())
-s5m = s5m.loc[s5m['inpatient_beds_used_covid'].nlargest(5).index]''',
-        language='python')
 st.dataframe(s5m)
 st.caption('Siendo New York el mayor hasta el 2020-06-30 '
            'con un total de 686.528 camas usadas por covid positivos.')
 #####################################
 st.markdown('2. Ocupacion de camas Covid en el estado de New York')
-st.code('''new_york = df2.sort_values(by='date')
-new_york = new_york.loc[
-    (new_york['date'] >= '2020-03-20') & (new_york['date'] <= '2021-06-15') & (new_york['state'] == 'NY')]
-new_york.reset_index(drop=True, inplace=True)''', language='python')
 st.plotly_chart(nyfig)
 st.caption('El 14 de Abril del 2020 se presento el mayor uso de camas con un total de '
            '14.126 personas internadas con covid ese dia, adicional a 439 muertes.\n'
@@ -194,28 +185,16 @@ st.caption('El 14 de Abril del 2020 se presento el mayor uso de camas con un tot
            'con 1225 personas internadas ese dia y solamente 15 muertes.')
 #####################################
 st.markdown('3. Top 5 estados con mayor uso de camas UCI anio 2020')
-st.code('''most_beds = df2.groupby('state').apply(lambda x: x[x['date'].dt.year == 2020][
-    ['inpatient_beds', 'inpatient_beds_used', 'inpatient_beds_used_covid']].sum())
-most_beds = most_beds.loc[most_beds['inpatient_beds_used'].nlargest(5).index]
-most_beds.reset_index(inplace=True)''', language='python')
 st.plotly_chart(bedsfig)
 st.caption('California lidera la lista con un total de 11.316.300 camas usadas durante el '
            'anio 2020, seguido de Texas con 11.073.678 camas usadas.')
 #####################################
 st.markdown('4. Estados con mayor uso de camas pediatricas anio 2020')
-st.code('''kids_bed = df2.groupby('state').apply(
-    lambda x: x[x['date'].dt.year == 2020][['total_pediatric_patients_hospitalized_confirmed_covid']].sum())
-kids_bed.reset_index(inplace=True)
-kids_bed.sort_values(by='total_pediatric_patients_hospitalized_confirmed_covid', ascending=False, inplace=True)''',
-        language='python')
 st.plotly_chart(kfig)
 st.caption('Texas encabeza la lista con un total de 12.582 camas pediatricas usadas durante el '
            'anio 2020.')
 #####################################
 st.markdown('5. Porcentaje camas UCI por estados')
-st.code('''uci_beds = df2.groupby('state')[['inpatient_beds', 'inpatient_beds_used_covid']].sum()
-uci_beds['usage_percent'] = round((uci_beds['inpatient_beds_used_covid'] / uci_beds['inpatient_beds']) * 100, 2)
-uci_beds.sort_values(by='usage_percent', ascending=False, inplace=True)''', language='python')
 st.dataframe(uci_beds)
 st.caption('El estado de Georgia presenta el mayor % de ocupacion por cama covid (11.42%) en relacion al '
            'total de camas disponibles en ese estado.')
@@ -223,27 +202,16 @@ st.plotly_chart(uci_b)
 st.caption('De tal forma que en relacion  total/covid gana a pesar de que en Texas haya mas uso de camas UCI.')
 #####################################
 st.markdown('6. ¿Cuántas muertes por covid hubo, por Estado, durante el año 2021?')
-st.code('''deaths = df2.groupby('state').apply(lambda x: x[x['date'].dt.year == 2021][['deaths_covid']].sum())
-deaths.reset_index(inplace=True)
-deaths.sort_values(by='deaths_covid', inplace=True)''', language='python')
 st.plotly_chart(death)
 st.caption('Se evidencia la asombrosa cantidad de 35.108 muertes en el estado de California durante el anio 2021, '
            'seguido muy de cerca por Texas con un total de 32.889 muertes en el estado.')
 #####################################
 st.markdown('7. Relacion muertes covid x falta de equipo')
-st.code('''staff = df2.groupby('state').apply(
-    lambda x: x[x['date'].dt.year == 2021][['critical_staffing_shortage_today_yes', 'deaths_covid']].sum())
-staff2 = staff.copy()
-staff2.reset_index(inplace=True)''', language='python')
 st.plotly_chart(sf)
 st.caption('Se puede observar un gran aumento de muertes con relacion a la falta de equipo(camas, personal, etc) '
            'durante el anio 2021.')
 #####################################
 st.markdown('8. Peor mes durante la pandemia COVID')
-st.code('''
-worst_month = worst_year.copy()
-worst_month = worst_month.groupby('month').sum()
-worst_month.rename(index=lambda x: calendar.month_abbr[x], inplace=True)''', language='python')
 st.plotly_chart(monthfig)
 st.caption('Se reporta Enero y Diciembre como los meses de peor crisis en relacion a muertes ocasionadas '
            'por la COVID-19.')
